@@ -45,7 +45,7 @@ const App = () => {
 
   // decimalClickHandler function:
   // 1) only activated when the decimal point "." is pressed
-  // 2) adds decimal point to the current num value, making it a decimal number
+  // 2) adds decimal point to the current (num) value, making it a decimal number
   // 3) make sure that no multiple decimal points are possible
   const decimalClickHandler = (e) => {
     e.preventDefault();
@@ -75,7 +75,7 @@ const App = () => {
 
   // equalsClickHandler function:
   // 1) calculates the result when = is pressed
-  // 2) calculation is based on the current num and res value, as well as the sign selected
+  // 2) calculation is based on the current (num) and (res) value, as well as the sign selected
   // 3) the returned value is then set as the new res for further calculations
   // 4) make sure that there's no effect on repeated cells
   // 5) make sure that users can't divide by 0
@@ -100,6 +100,18 @@ const App = () => {
         num: 0,
       });
     }
+  };
+
+  // invertClickHandler function:
+  // 1) first checks if there's any entered value (num) or calculated value (res)
+  // 2) then inverts them by multiplying with -1
+  const invertClickHandler = () => {
+    setCalc({
+      ...calc,
+      num: calc.num ? calc.num * -1 : 0,
+      res: calc.res ? calc.res * -1 : 0,
+      sign: "",
+    });
   };
 
   // ———
