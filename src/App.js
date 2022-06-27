@@ -25,7 +25,6 @@ const App = () => {
   // 2) no multiple 0's before the comma
   // 3) the format becomes "0" if "." is pressed first
   // 4) numbers are entered up to 16 integers long
-
   const numClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -48,7 +47,6 @@ const App = () => {
   // 1) only activated when the decimal point "." is pressed
   // 2) adds decimal point to the current num value, making it a decimal number
   // 3) make sure that no multiple decimal points are possible
-
   const decimalClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -59,11 +57,10 @@ const App = () => {
     });
   };
 
-  //signClickHandler function:
+  // signClickHandler function:
   // 1) only activated when either +, -, * or / are pressed
   // 2) the particular value is set as a current sign value in the calc object
   // 3) make sure there's no effect on repeated cells
-
   const signClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -75,6 +72,37 @@ const App = () => {
       num: 0,
     });
   };
+
+  // equalsClickHandler function:
+  // 1) calculates the result when = is pressed
+  // 2) calculation is based on the current num and res value, as well as the sign selected
+  // 3) the returned value is then set as the new res for further calculations
+  // 4) make sure that there's no effect on repeated cells
+  // 5) make sure that users can't divide by 0
+  const equalsClickHandler = () => {
+    if (calc.sign && calc.num) {
+      const math = (a, b, sign) =>
+        sign === "+"
+          ? a + b
+          : sign === "-"
+          ? a - b
+          : sign === "X"
+          ? a * b
+          : a / b;
+
+      setCalc({
+        ...calc,
+        res:
+          calc.num === "0" && calc.sign === "/"
+            ? "Can't divide by 0"
+            : math(Number(calc.res), Number(calc.num), calc.sign),
+        sign: "",
+        num: 0,
+      });
+    }
+  };
+
+  // ———
 
   return (
     <Wrapper>
