@@ -44,7 +44,7 @@ const App = () => {
     }
   };
 
-  // decimalClickHandler function
+  // decimalClickHandler function:
   // 1) only activated when the decimal point "." is pressed
   // 2) adds decimal point to the current num value, making it a decimal number
   // 3) make sure that no multiple decimal points are possible
@@ -56,6 +56,23 @@ const App = () => {
     setCalc({
       ...calc,
       num: !calc.num.toString().includes(".") ? calc.num + value : calc.num,
+    });
+  };
+
+  //signClickHandler function:
+  // 1) only activated when either +, -, * or / are pressed
+  // 2) the particular value is set as a current sign value in the calc object
+  // 3) make sure there's no effect on repeated cells
+
+  const signClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    setCalc({
+      ...calc,
+      sign: value,
+      res: !calc.res && calc.num ? calc.num : calc.res,
+      num: 0,
     });
   };
 
