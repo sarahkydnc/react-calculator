@@ -13,6 +13,11 @@ const btnValues = [
   [0, ".", "="],
 ];
 
+const toLocaleString = (num) =>
+  String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+
+const removeSpaces = (num) => num.toString().replace(/\s/g, "");
+
 const App = () => {
   let [calc, setCalc] = useState({
     sign: "",
@@ -29,15 +34,15 @@ const App = () => {
     e.preventDefault();
     const value = e.target.innerHTML;
 
-    if (calc.num.length < 16) {
+    if (removeSpaces(calc.num).length < 16) {
       setCalc({
         ...calc,
         num:
           calc.num === 0 && value === "0"
             ? "0"
-            : calc.num % 1 === 0
-            ? Number(calc.num + value)
-            : calc.num + value,
+            : removeSpaces(calc.num) % 1 === 0
+            ? toLocaleString(Number(removeSpaces(calc.num + value)))
+            : toLocaleString(calc.num + value),
         res: !calc.sign ? 0 : calc.res,
       });
     }
@@ -94,8 +99,14 @@ const App = () => {
         ...calc,
         res:
           calc.num === "0" && calc.sign === "/"
-            ? "Can't divide by 0"
-            : math(Number(calc.res), Number(calc.num), calc.sign),
+            ? "Can't divide with 0"
+            : toLocaleString(
+                math(
+                  Number(removeSpaces(calc.res)),
+                  Number(removeSpaces(calc.num)),
+                  calc.sign
+                )
+              ),
         sign: "",
         num: 0,
       });
@@ -108,8 +119,8 @@ const App = () => {
   const invertClickHandler = () => {
     setCalc({
       ...calc,
-      num: calc.num ? calc.num * -1 : 0,
-      res: calc.res ? calc.res * -1 : 0,
+      num: calc.num ? toLocaleString(removeSpaces(calc.num) * -1) : 0,
+      res: calc.res ? toLocaleString(removeSpaces(calc.res) * -1) : 0,
       sign: "",
     });
   };
@@ -119,12 +130,12 @@ const App = () => {
   // 2) then calculates the percentage using the built-in Math.pow function
   // 3) returns the base to the exponent power
   const percentClickHandler = () => {
-    let num = calc.num ? parseFloat(calc.num) : 0;
-    let res = calc.res ? parseFloat(calc.res) : 0;
+    let num = calc.num ? parseFloat(removeSpaces(calc.num)) : 0;
+    let res = calc.res ? parseFloat(removeSpaces(calc.res)) : 0;
 
     setCalc({
       ...calc,
-      num: ((num /= Math), pow(100, 1)),
+      num: (num /= Math.pow(100, 1)),
       res: (res /= Math.pow(100, 1)),
       sign: "",
     });
