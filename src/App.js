@@ -130,6 +130,18 @@ const App = () => {
     });
   };
 
+  // resetClickHandler function:
+  // 1) defaults all the initial values of (calc)
+  // 2) returns the (calc) state to what it was when the app is first loaded
+  const resetClickHandler = () => {
+    setCalc({
+      ...calc,
+      sign: "",
+      num: 0,
+      res: 0,
+    });
+  };
+
   // ———
 
   return (
