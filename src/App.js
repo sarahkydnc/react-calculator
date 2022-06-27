@@ -114,6 +114,22 @@ const App = () => {
     });
   };
 
+  // percentClickHandler function:
+  // 1) first checks if there's any entered value (num) or calculated value (res)
+  // 2) then calculates the percentage using the built-in Math.pow function
+  // 3) returns the base to the exponent power
+  const percentClickHandler = () => {
+    let num = calc.num ? parseFloat(calc.num) : 0;
+    let res = calc.res ? parseFloat(calc.res) : 0;
+
+    setCalc({
+      ...calc,
+      num: ((num /= Math), pow(100, 1)),
+      res: (res /= Math.pow(100, 1)),
+      sign: "",
+    });
+  };
+
   // ———
 
   return (
