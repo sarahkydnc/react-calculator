@@ -1,4 +1,7 @@
 .wrapper {
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px;
   width: 340px;
   height: 540px;
   padding: 10px;
