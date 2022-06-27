@@ -20,6 +20,12 @@ const App = () => {
     res: 0,
   });
 
+  // numClickHandler function — to make sure that:
+  // 1) no whole numbers start with 0
+  // 2) no multiple 0's before the comma
+  // 3) the format becomes "0" if "." is pressed first
+  // 4) numbers are entered up to 16 integers long
+
   const numClickHandler = (e) => {
     e.preventDefault();
     const value = e.target.innerHTML;
@@ -36,6 +42,21 @@ const App = () => {
         res: !calc.sign ? 0 : calc.res,
       });
     }
+  };
+
+  // decimalClickHandler function
+  // 1) only activated when the decimal point "." is pressed
+  // 2) adds decimal point to the current num value, making it a decimal number
+  // 3) make sure that no multiple decimal points are possible
+
+  const decimalClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
+
+    setCalc({
+      ...calc,
+      num: !calc.num.toString().includes(".") ? calc.num + value : calc.num,
+    });
   };
 
   return (
@@ -60,7 +81,7 @@ const App = () => {
                   : btn === "/" || btn === "X" || btn === "-" || btn === "+"
                   ? signClickHandler
                   : btn === "."
-                  ? commaClickHandler
+                  ? decimalClickHandler
                   : numClickHandler
               }
             />
