@@ -13,8 +13,11 @@ const btnValues = [
   [0, ".", "="],
 ];
 
-const toLocaleString = (num) =>
-  String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 ");
+const toLocaleString = (num) => {
+  const arr = String(num).split(".");
+  arr.splice(0, 1, arr[0].replace(/(\d)(?=(?:\d{3})+(?:\.|$))/g, "$1 "));
+  return arr.join(".");
+};
 
 const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
